@@ -14,19 +14,20 @@ Barman.prototype.goUp = function() {
 };
 
 Barman.prototype.goDown = function() {
-  if (this.position[0] < 10) {
+  if (this.position[0] < 4) {
     this.position[0] += 1;
   }
   return this.position;
 };
 
-// Barman.prototype.giveNewBeer = function() {  // setInterval();
-//   var newBeer = new Beer();
-//   newBeer.position
-//   return this.position[1] - 1;  // From right to left
-//
-// };
+Barman.prototype.giveNewBeer = function() {  // setInterval();
+  var newBeer = new Beer();
+  newBeer.beerPosition = this.position;
+  return newBeer;  // From right to left
+};
 
-Beer.prototype.takeEmptyBeer = function(positionbeer) {
+
+
+Barman.prototype.takeEmptyBeer = function(positionbeer) {
   positionBarman[1] += 1;
 };

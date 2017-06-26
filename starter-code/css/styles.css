@@ -11,8 +11,8 @@ html, body {
 #container-game {
   border: 1px solid black;
   margin: 30px auto;
-  padding:100px;
-  height: 450px;
+  padding:50px;
+  height: 400px;
   position: relative;
 }
 
@@ -22,7 +22,7 @@ html, body {
 
 }
 .client {
-
+  background: blue;
 }
 
 .row{
@@ -39,7 +39,7 @@ html, body {
   text-align: center;
 }
 .beer {
-  /*background-image: url(); */
+  background: green;
 }
 
 .score span {}
