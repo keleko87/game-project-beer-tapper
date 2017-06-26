@@ -69,7 +69,7 @@ function giveNewBeer(client1) {
   intervalIdNewBeer = setInterval(function() {
 
       var collision = addCollision(client1, newBeer);
-      console.log('hasBeer',collision,'-------',client1.hasBeer);
+      console.log('hasBeer', collision, '-------', client1.hasBeer);
 
       if (!client1.hasBeer) {
         if (newBeer.beerPosition[1] > 0) {
@@ -89,6 +89,8 @@ function giveNewBeer(client1) {
       } else {
         console.log('else giveNewBeer0');
         moveClientLeft(client1);
+        deleteBeer(newBeer);
+        // console.log('creta ELEMENT', createNewClient(client1));
         clearInterval(intervalIdNewBeer);
 
       }
@@ -96,18 +98,39 @@ function giveNewBeer(client1) {
     1000);
 }
 
-// function deleteBeer(client1,newBeer){
-//
+// function deleteClient(client1) {
+//   var clientPosition = client1.position;
+//   client1 = {
+//     position: clientPosition
+//   };
+//   return client1;
 // }
+//
+// function createNewClient(client1) {
+//   if (client1.isHidden()) {
+//     client1 = deleteClient(client1);
+//     setTimeout(function() {
+//       client1 = new Client(client1.position);
+//       return client1;
+//     }, client1.timeDrink);
+//   }
+// }
+
+function deleteBeer(newBeer) {
+  console.log(newBeer.beerPosition[1]);
+  var row = $("div[index='" + newBeer.beerPosition[0] + "']");
+  var current = $(row).children('div[x="' + newBeer.beerPosition[1] + '"]');
+  current.removeClass('beer');
+}
 
 function addCollision(client1, newBeer) {
   var interAddColision = setInterval(function() {
     if (newBeer && client1) {
-      if (newBeer.beerPosition[0] === client1.clientPosition[0] && newBeer.beerPosition[1] === client1.clientPosition[1]) {
+      if ((newBeer.beerPosition[0] === client1.clientPosition[0]) && (newBeer.beerPosition[1] === client1.clientPosition[1])) {
         console.log(newBeer.beerPosition, '=====', client1.clientPosition);
         client1.hasBeer = true;
         return client1.hasBeer;
-      }else{
+      } else {
         return false;
       }
     }
@@ -150,10 +173,10 @@ function moveListeners(event) {
 $(document).ready(function() {
 
   printBoard(board);
-  $(document).on('keydown', moveListeners);
+
 
   $('#start').on('click', function() {
-
+    $(document).on('keydown', moveListeners);
     setTimeout(function() {
       moveClientRight(client1);
     }, client1.speed);
