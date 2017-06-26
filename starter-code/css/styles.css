@@ -1,0 +1,59 @@
+html, body {
+  margin: 0;
+  padding: 0;
+}
+
+.container {
+  margin: 20px;
+  text-align: center;
+}
+
+#container-game {
+  border: 1px solid black;
+  margin: 30px auto;
+  padding:100px;
+  height: 450px;
+  position: relative;
+}
+
+#board {}
+
+#barman{
+
+}
+.client {
+
+}
+
+.row{
+  border: 1px solid green;
+  height: calc(100% / 4);
+  width: 100%;
+}
+.row div{
+  display: inline-block;
+  border: 1px solid green;
+  width: calc(100% / 10);
+  height: calc(100% / 4);
+  margin: 0 -1px;
+  text-align: center;
+}
+.beer {
+  /*background-image: url(); */
+}
+
+.score span {}
+
+.left {
+  left: 0;
+}
+
+.right {
+  right: 0;
+}
+
+button {}
+
+#winner {}
+
+#winner.hide {}
