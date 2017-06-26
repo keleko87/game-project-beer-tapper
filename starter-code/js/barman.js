@@ -22,7 +22,8 @@ Barman.prototype.goDown = function() {
 
 Barman.prototype.giveNewBeer = function() {  // setInterval();
   var newBeer = new Beer();
-  newBeer.beerPosition = this.position;
+  newBeer.beerPosition[0] = this.position[0];
+  newBeer.beerPosition[1] = 9;
   return newBeer;  // From right to left
 };
 

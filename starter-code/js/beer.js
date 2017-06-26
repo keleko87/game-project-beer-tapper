@@ -1,6 +1,6 @@
-function Beer(barmanPosition) {
+function Beer() {
   // this.direction = 'W';  // From barman to beer
-  this.beerPosition = barmanPosition;
+  this.beerPosition = [];
   this.crashed = false;
   this.full = false;
 }

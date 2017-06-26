@@ -64,7 +64,7 @@ var newBeer = {};
 var intervalIdNewBeer;
 
 function giveNewBeer(client1) {
-  newBeer = barman.giveNewBeer(barman.position);
+  newBeer = barman.giveNewBeer();
 
   intervalIdNewBeer = setInterval(function() {
 
@@ -97,6 +97,13 @@ function giveNewBeer(client1) {
     },
     1000);
 }
+
+// function wins(client1){
+//   console.log('clienthasbeer',client1.hasBeer);
+//     if(client1.hasBeer && client1.hidden){
+//       alert('Congratulations!! Give that man a new!');
+//     }
+// }
 
 // function deleteClient(client1) {
 //   var clientPosition = client1.position;
@@ -180,6 +187,7 @@ $(document).ready(function() {
     setTimeout(function() {
       moveClientRight(client1);
     }, client1.speed);
+      // wins(client1);
   });
 
 

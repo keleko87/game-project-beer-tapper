@@ -39,7 +39,9 @@ html, body {
   text-align: center;
 }
 .beer {
-  background: green;
+  background-image: url('../img/beer-full.png');
+  background-repeat: no-repeat;
+  background-size:contain;
 }
 
 .score span {}
