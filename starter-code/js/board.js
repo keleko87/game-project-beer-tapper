@@ -10,7 +10,6 @@ function Board() {
 }
 
 
-
 //
 // Board.prototype.crashBeer = function() {
 //   if ((this.BeerPosition[1] === 0) && !this.isEmpty()) {

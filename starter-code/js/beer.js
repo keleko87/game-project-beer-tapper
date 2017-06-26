@@ -2,7 +2,7 @@ function Beer(barmanPosition) {
   // this.direction = 'W';  // From barman to beer
   this.beerPosition = barmanPosition;
   this.crashed = false;
-  this.full = true;
+  this.full = false;
 }
 
 

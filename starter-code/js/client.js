@@ -2,7 +2,8 @@ function Client(clientPosition) {
   this.name = 'CL';
   this.direction = 'R';
   this.clientPosition = clientPosition;
-  this.speed = 1;
+  this.speed = 1000 ;  // Miliseconds
+  this.timeDrink = 1000;
   this.hasBeer = false;
 }
 
