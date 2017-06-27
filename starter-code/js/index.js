@@ -1,6 +1,9 @@
 var board = new Board();
 var barman = new Barman();
-var client1 = new Client([0, 0]);
+var client1 = new Client([0, 0], 1000);
+// var client2 = new Client([1, 0], 1000);
+// var client3 = new Client([2, 0], 800);
+// var client4 = new Client([3, 0], 1600);
 
 // Print board
 function printBoard(board, p) {
@@ -11,11 +14,14 @@ function printBoard(board, p) {
 
     for (var x = 0; x < arrRow.length; x++) {
       var column = $('<div>').attr('y', y).attr('x', x);
+      if( x === 0){
+        column.addClass('hidden');
+      }
       if (y === 0 && x === 9) {
         column.addClass('barman');
         // column.text(arrRow[x]);
         row.append(column);
-      } else {
+      }else {
         // column.text(arrRow[x]);
         row.append(column);
       }
@@ -24,25 +30,7 @@ function printBoard(board, p) {
   });
 }
 
-function barmanGoUp() {
-  console.log('goUp');
-  barman.goUp();
-  var prev = barman.position[0] - 1;
-  $('.row').each(function(index, elem) {
-    $('div[index="' + index + '"]').children().removeClass('barman');
-  });
-  var current = $('div[index="' + barman.position[0] + '"]').children().last().addClass('barman');
-}
 
-function barmanGoDown() {
-  console.log('GOdOWN');
-  barman.goDown();
-  var prev = barman.position[0] + 1;
-  $('.row').each(function(index, elem) {
-    $('div[index="' + index + '"]').children().removeClass('barman');
-  });
-  var current = $('div[index="' + barman.position[0] + '"]').children().last().addClass('barman');
-}
 
 var intervalIdClientRight;
 
@@ -87,6 +75,10 @@ function moveClientLeft(client1) {
   }, client1.speed / 4);
 }
 
+
+
+/******************** BARMAN ********************************/
+
 var newBeer = {};
 var intervalIdNewBeer;
 
@@ -116,13 +108,33 @@ function giveNewBeer(client1) {
       } else {
         console.log('else giveNewBeer0');
         moveClientLeft(client1);
-        deleteBeer(newBeer);
+        // deleteBeer(newBeer);
         // console.log('creta ELEMENT', createNewClient(client1));
         clearInterval(intervalIdNewBeer);
 
       }
     },
     1000);
+}
+
+function barmanGoUp() {
+  console.log('goUp');
+  barman.goUp();
+  var prev = barman.position[0] - 1;
+  $('.row').each(function(index, elem) {
+    $('div[index="' + index + '"]').children().removeClass('barman');
+  });
+  var current = $('div[index="' + barman.position[0] + '"]').children().last().addClass('barman');
+}
+
+function barmanGoDown() {
+  console.log('GOdOWN');
+  barman.goDown();
+  var prev = barman.position[0] + 1;
+  $('.row').each(function(index, elem) {
+    $('div[index="' + index + '"]').children().removeClass('barman');
+  });
+  var current = $('div[index="' + barman.position[0] + '"]').children().last().addClass('barman');
 }
 
 // function wins(client1){
@@ -151,7 +163,7 @@ function giveNewBeer(client1) {
 // }
 
 function deleteBeer(newBeer) {
-  console.log('NEW BEER POSITION',newBeer.beerPosition[1]);
+  console.log('NEW BEER POSITION', newBeer.beerPosition[1]);
   var row = $("div[index='" + newBeer.beerPosition[0] + "']");
   var current = $(row).children('div[x="' + newBeer.beerPosition[1] + '"]');
   current.removeClass('beer');
@@ -168,11 +180,10 @@ function addCollision(client1, newBeer) {
         return false;
       }
     }
-  }, 400);
+  }, 10);
 
 
 }
-
 
 // Listener to move paddle
 function moveListeners(event) {
@@ -184,11 +195,9 @@ function moveListeners(event) {
   switch (event.keyCode) {
     case 38: // Up
       barmanGoUp();
-      // console.log('key up',barman.goUp());
       break;
     case 40: // Down
       barmanGoDown();
-      // console.log('key down',barman.goDown());
       break;
     case 65: // give a new beer
       giveNewBeer(client1);
@@ -196,11 +205,11 @@ function moveListeners(event) {
   }
 }
 
-
-
-
-
-
+function initClient(client) {
+  setTimeout(function() {
+    moveClientRight(client);
+  }, client.speed);
+}
 
 /*********************** HTML DOM interaction ****************************************************************/
 $(document).ready(function() {
@@ -208,12 +217,10 @@ $(document).ready(function() {
   printBoard(board);
 
   $('#start').on('click', function() {
+    $(this).attr('disabled','disabled').addClass('disabled');
     $(document).on('keydown', moveListeners);
-    setTimeout(function() {
-      moveClientRight(client1);
-    }, client1.speed);
-    // wins(client1);
+    initClient(client1);
+    // initClient(client2);
   });
-
 
 });

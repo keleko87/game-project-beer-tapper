@@ -2,7 +2,7 @@ function Barman() {
   this.name = 'BM';
   this.position = [0, 9];
   // this.direction = 'S';
-  // this.BeerPosition = ;
+  this.beers = 0;
   this.score = 0;
 }
 
@@ -24,6 +24,7 @@ Barman.prototype.giveNewBeer = function() {  // setInterval();
   var newBeer = new Beer();
   newBeer.beerPosition[0] = this.position[0];
   newBeer.beerPosition[1] = 9;
+  this.beers +=1;
   return newBeer;  // From right to left
 };
 

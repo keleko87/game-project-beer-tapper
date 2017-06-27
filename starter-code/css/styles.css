@@ -11,37 +11,52 @@ html, body {
 #container-game {
   border: 1px solid black;
   margin: 30px auto;
-  padding:50px;
+  padding: 50px;
   height: 400px;
   position: relative;
 }
 
 #board {}
 
-.barman{
-  background: red;
-}
-.client {
-  background: blue;
+.disabled {
+  opacity: 0.65;
+  cursor: not-allowed;
 }
 
-.row{
+.hidden {
+  background: #000 !important;
+}
+
+.barman {
+  background: red;
+}
+
+.client {
+  background-image: url('../img/barney.gif');
+  background-repeat: no-repeat;
+  background-size: contain;
+}
+
+.row {
   border: 1px solid green;
   height: calc(100% / 4);
   width: 100%;
 }
-.row div{
+
+.row div {
   display: inline-block;
   border: 1px solid green;
   width: calc(100% / 10);
-  height: calc(100% / 4);
+  height: 100%;
+  /*height: calc(100% / 4);*/
   margin: 0 -1px;
   text-align: center;
 }
+
 .beer {
   background-image: url('../img/beer-full.png');
   background-repeat: no-repeat;
-  background-size:contain;
+  background-size: contain;
 }
 
 .score span {}

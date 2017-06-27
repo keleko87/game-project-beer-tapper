@@ -3,6 +3,7 @@ function Beer() {
   this.beerPosition = [];
   this.crashed = false;
   this.full = false;
+  this.id = 0;
 }
 
 Beer.prototype.slideRight = function() {
