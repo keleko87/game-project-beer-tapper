@@ -10,11 +10,38 @@ function printBoard(board, p) {
     var row = $('<div>').addClass('row').attr('index', y);
 
     for (var x = 0; x < arrRow.length; x++) {
-      var column = $('<div>').attr('y', y).attr('x', x).text(arrRow[x]);
-      row.append(column);
+      var column = $('<div>').attr('y', y).attr('x', x);
+      if (y === 0 && x === 9) {
+        column.addClass('barman');
+        // column.text(arrRow[x]);
+        row.append(column);
+      } else {
+        // column.text(arrRow[x]);
+        row.append(column);
+      }
     }
     container.append(row);
   });
+}
+
+function barmanGoUp() {
+  console.log('goUp');
+  barman.goUp();
+  var prev = barman.position[0] - 1;
+  $('.row').each(function(index, elem) {
+    $('div[index="' + index + '"]').children().removeClass('barman');
+  });
+  var current = $('div[index="' + barman.position[0] + '"]').children().last().addClass('barman');
+}
+
+function barmanGoDown() {
+  console.log('GOdOWN');
+  barman.goDown();
+  var prev = barman.position[0] + 1;
+  $('.row').each(function(index, elem) {
+    $('div[index="' + index + '"]').children().removeClass('barman');
+  });
+  var current = $('div[index="' + barman.position[0] + '"]').children().last().addClass('barman');
 }
 
 var intervalIdClientRight;
@@ -57,7 +84,7 @@ function moveClientLeft(client1) {
       clearInterval(intervalId);
     }
 
-  }, client1.speed);
+  }, client1.speed / 4);
 }
 
 var newBeer = {};
@@ -124,7 +151,7 @@ function giveNewBeer(client1) {
 // }
 
 function deleteBeer(newBeer) {
-  console.log(newBeer.beerPosition[1]);
+  console.log('NEW BEER POSITION',newBeer.beerPosition[1]);
   var row = $("div[index='" + newBeer.beerPosition[0] + "']");
   var current = $(row).children('div[x="' + newBeer.beerPosition[1] + '"]');
   current.removeClass('beer');
@@ -156,15 +183,14 @@ function moveListeners(event) {
 
   switch (event.keyCode) {
     case 38: // Up
-      barman.goUp();
-      console.log('key up');
+      barmanGoUp();
+      // console.log('key up',barman.goUp());
       break;
     case 40: // Down
-      barman.goDown();
-      console.log('key down');
+      barmanGoDown();
+      // console.log('key down',barman.goDown());
       break;
     case 65: // give a new beer
-      console.log('give a new!!!');
       giveNewBeer(client1);
       break;
   }
@@ -181,13 +207,12 @@ $(document).ready(function() {
 
   printBoard(board);
 
-
   $('#start').on('click', function() {
     $(document).on('keydown', moveListeners);
     setTimeout(function() {
       moveClientRight(client1);
     }, client1.speed);
-      // wins(client1);
+    // wins(client1);
   });
 
 

@@ -18,8 +18,8 @@ html, body {
 
 #board {}
 
-#barman{
-
+.barman{
+  background: red;
 }
 .client {
   background: blue;

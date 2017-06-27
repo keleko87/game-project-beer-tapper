@@ -1,6 +1,6 @@
 function Barman() {
   this.name = 'BM';
-  this.position = [0, 10];
+  this.position = [0, 9];
   // this.direction = 'S';
   // this.BeerPosition = ;
   this.score = 0;
@@ -14,7 +14,7 @@ Barman.prototype.goUp = function() {
 };
 
 Barman.prototype.goDown = function() {
-  if (this.position[0] < 4) {
+  if (this.position[0] < 3) {
     this.position[0] += 1;
   }
   return this.position;

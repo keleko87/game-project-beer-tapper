@@ -14,7 +14,7 @@ Client.prototype.goRight = function() {
     this.hidden = false;
     console.log('Position', this.clientPosition[1]);
   } else {
-    alert('Barman losts!!!! Clients is in the final clientPosition ');
+    console.log('Barman losts!!!! Clients is in the final clientPosition ');
     return false;
   }
   return this.clientPosition;
@@ -27,7 +27,7 @@ Client.prototype.goLeft = function() {
 
   } else {
     this.hidden = true;
-    alert('Congratulations!! Give that man a new!');
+    console.log('Congratulations!! Give that man a new!');
     return false;
   }
   return this.clientPosition;

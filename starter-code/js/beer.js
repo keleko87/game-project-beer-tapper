@@ -5,8 +5,6 @@ function Beer() {
   this.full = false;
 }
 
-
-
 Beer.prototype.slideRight = function() {
   return this.beerPosition[1] += 1;
 };
