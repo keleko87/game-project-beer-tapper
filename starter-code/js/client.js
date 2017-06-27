@@ -1,8 +1,8 @@
-function Client(clientPosition, speed) {
+function Client(clientPosition, speed, waitBeer) {
   this.name = 'CL';
   this.clientPosition = clientPosition;
   this.speed = speed; // Miliseconds
-  this.timeDrink = 1000;
+  this.waitBeer = waitBeer;
   this.hasBeer = false;
   this.hidden = true;
 }
@@ -32,8 +32,10 @@ Client.prototype.goLeft = function() {
 
 Client.prototype.isHidden = function() {
   if (this.clientPosition[1] === 0) {
+    this.hidden = true;
     return true;
   } else {
+    this.hidden = false;
     return false;
   }
 };
