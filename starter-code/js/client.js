@@ -11,7 +11,6 @@ Client.prototype.goRight = function() {
   if (this.clientPosition[1] < 9) {
     this.clientPosition[1] += 1;
     this.hidden = false;
-    console.log('Position', this.clientPosition[1]);
   } else {
     console.log('Barman losts!!!! Clients is in the final clientPosition ');
     return false;

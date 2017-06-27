@@ -19,10 +19,8 @@ function printBoard(board, p) {
       }
       if (y === 0 && x === 9) {
         column.addClass('barman');
-        // column.text(arrRow[x]);
         row.append(column);
       } else {
-        // column.text(arrRow[x]);
         row.append(column);
       }
     }
@@ -31,95 +29,83 @@ function printBoard(board, p) {
 }
 
 
+/******************* CLIENT ********************************************************/
 
-var intervalIdClientRight;
 
-function moveClientRight(client1) {
-  if (client1.isHidden()) {
-
-    intervalIdClientRight = setInterval(function() {
-      if (client1.goRight()) {
-        var row = $("div[index='" + client1.clientPosition[0] + "']");
-        var prev = client1.clientPosition[1] - 1;
-        var current = $(row).children('div[x="' + client1.clientPosition[1] + '"]');
-        current.addClass('client');
-        $('div[x="' + prev + '"]').removeClass('client');
-      } else {
-        clearInterval(intervalIdClientRight);
-      }
-
-    }, client1.timeDrink);
+function updateClient(client1, direction) {
+  var prev;
+  if (direction === 'R') {
+    client1.goRight();
+    prev = client1.clientPosition[1] - 1;
+  } else if (direction === 'L') {
+    client1.goLeft();
+    prev = client1.clientPosition[1] + 1;
   }
+  $('div[x="' + prev + '"]').removeClass('client');
+  var row = $("div[index='" + client1.clientPosition[0] + "']");
+  var current = $(row).children('div[x="' + client1.clientPosition[1] + '"]').addClass('client');
+
+
+  return client1.clientPosition[1];
 }
-
-function moveClientLeft(client1) {
-  // if (!client1.isHidden()) {
-
-  var intervalId = setInterval(function() {
-    if (client1.goLeft()) {
-      clearInterval(intervalIdNewBeer);
-      clearInterval(intervalIdClientRight);
-
-      var row = $("div[index='" + client1.clientPosition[0] + "']");
-      var prev = client1.clientPosition[1] + 1;
-      var current = $(row).children('div[x="' + client1.clientPosition[1] + '"]');
-      current.addClass('client');
-      $('div[x="' + prev + '"]').removeClass('client');
-    } else {
-      alert('Congratulations!! Give that man a new!');
-      location.reload();
-      clearInterval(intervalId);
-    }
-
-  }, client1.speed / 4);
-}
-
-
 
 /******************** BARMAN ********************************/
 
-
-var intervalIdNewBeer;
+// var intervalIdNewBeer;
 
 function giveNewBeer(client1) {
-  var newBeer = {};
-  newBeer = barman.giveNewBeer();
-
-  intervalIdNewBeer = setInterval(function() {
-
-
-
-      var collision = addCollision(client1, newBeer);
-
-      if (!client1.hasBeer) {
-        if (newBeer.beerPosition[1] > 1) {
-
-          newBeer.slideLeft();
-          var row = $("div[index='" + newBeer.beerPosition[0] + "']");
-
-          var prev = newBeer.beerPosition[1] + 1;
-          var current = $(row).children('div[x="' + newBeer.beerPosition[1] + '"]');
-          current.addClass('beer');
-          $('div[x="' + prev + '"]').removeClass('beer');
-
-        } else if (newBeer.beerPosition[1] == 1) {
-          deleteBeer(newBeer);
-          clearInterval(intervalIdNewBeer);
-          alert('Beer crashed!!!');
-          location.reload();
-          return;
-        }
-
-      } else {
-        console.log('else giveNewBeer0');
-        moveClientLeft(client1);
-        deleteBeer(newBeer);
-        clearInterval(intervalIdNewBeer);
-
-      }
-    },
-    500);
+  var newBeer = barman.giveNewBeer();
+  var intervalIdNewBeer = setInterval(addCollisionBeer(client1, newBeer), 100);
 }
+
+function addCollisionBeer(client1, beer) {
+  var nextPosBeer = updateBeerLeft(beer) - 1;
+  var nextPosCli = updateClient(client1, 'R') + 1;
+  console.log(nextPosCli, 'posNext: ', nextPosBeer);
+
+  if (nextPosBeer === nextPosCli) {
+    updateClient(client1, 'L');
+  }
+}
+
+
+// function giveNewBeer(client1) {
+//   var newBeer = {};
+//   newBeer = barman.giveNewBeer();
+//
+//   intervalIdNewBeer = setInterval(function() {
+//
+//       addCollision(client1, newBeer);
+//
+//       if (!client1.hasBeer) {
+//         if (newBeer.beerPosition[1] > 1) {
+//
+//           newBeer.slideLeft();
+//           var row = $("div[index='" + newBeer.beerPosition[0] + "']");
+//
+//           // var prev = newBeer.beerPosition[1] + 1;
+//           // var current = $(row).children('div[x="' + newBeer.beerPosition[1] + '"]');
+//           // current.addClass('beer');
+//           // $('div[x="' + prev + '"]').removeClass('beer');
+//
+//         } else if (newBeer.beerPosition[1] == 1) {
+//           deleteBeer(newBeer);
+//           clearInterval(intervalIdNewBeer);
+//           alert('Beer crashed!!!');
+//           location.reload();
+//           return;
+//         }
+//
+//       } else {
+//         console.log('else giveNewBeer0');
+//         moveClientLeft(client1);
+//         deleteBeer(newBeer);
+//         clearInterval(intervalIdNewBeer);
+//
+//       }
+//     },
+//     400);
+// }
 
 function barmanGoUp() {
   barman.goUp();
@@ -142,6 +128,15 @@ function barmanGoDown() {
 
 /**********************   BEER **************************************************/
 
+function updateBeerLeft(newBeer) {
+  newBeer.slideLeft();
+  var prev = newBeer.beerPosition[1] + 1;
+  $('div[x="' + prev + '"]').removeClass('beer');
+  var row = $("div[index='" + newBeer.beerPosition[0] + "']");
+  var current = $(row).children('div[x="' + newBeer.beerPosition[1] + '"]').addClass('beer');
+  return newBeer.beerPosition[1];
+}
+
 function deleteBeer(newBeer) {
   console.log(' BEER POSITION', newBeer.beerPosition[1]);
   var row = $("div[index='" + newBeer.beerPosition[0] + "']");
@@ -149,27 +144,19 @@ function deleteBeer(newBeer) {
   current.removeClass('beer');
 }
 
-function addCollision(client1, newBeer) {
-  var interAddColision = setInterval(function() {
-    if (newBeer && client1) {
-      if ((newBeer.beerPosition[0] === client1.clientPosition[0]) && (newBeer.beerPosition[1] === client1.clientPosition[1])) {
-        client1.hasBeer = true;
-        return client1.hasBeer;
-      } else {
-        return false;
-      }
-    }
-  }, 10);
-
-}
-
-function beerCrashed(newBeer) {
-  if (newBeer.crashed) {
-    alert('Barman losts!!');
-  }
-}
-
-
+// function addCollision(client1, newBeer) {
+//   // var interAddColision = setInterval(funnewBeerction() {
+//   if (newBeer && client1) {
+//     if ((newBeer.beerPosition[0] === client1.clientPosition[0]) && (newBeer.beerPosition[1] === client1.clientPosition[1])) {
+//       client1.hasBeer = true;
+//       return client1.hasBeer;
+//     } else {
+//       return false;
+//     }
+//   }
+//   // }, 10);
+//
+// }
 
 
 // Listener to move paddle
@@ -192,11 +179,7 @@ function moveListeners(event) {
   }
 }
 
-function initClient(client) {
-  setTimeout(function() {
-    moveClientRight(client);
-  }, client.speed);
-}
+
 
 /*********************** HTML DOM interaction ****************************************************************/
 $(document).ready(function() {
@@ -206,8 +189,14 @@ $(document).ready(function() {
   $('#start').on('click', function() {
     $(this).attr('disabled', 'disabled').addClass('disabled');
     $(document).on('keydown', moveListeners);
-    initClient(client1);
-    // initClient(client2);
+
+
+    var initGame = setInterval(function() {
+      updateClient(client1, 'R');
+      // addCollisionBeer(client1);
+    }, 1000);
+
+
   });
 
 });
