@@ -26,7 +26,6 @@ Client.prototype.goLeft = function() {
 
   } else {
     this.hidden = true;
-    console.log('Congratulations!! Give that man a new!');
     return false;
   }
   return this.clientPosition;
