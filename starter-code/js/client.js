@@ -31,8 +31,9 @@ Client.prototype.goLeft = function() {
 };
 
 Client.prototype.isHidden = function() {
-  if (this.clientPosition[1] === 0) {
+  if (this.clientPosition[1] === 0 || this.waitBeer === 0) {
     this.hidden = true;
+    console.log('Client is Hidden: ',this.clientPosition);
     return true;
   } else {
     this.hidden = false;

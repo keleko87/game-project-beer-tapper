@@ -4,6 +4,7 @@ function Barman() {
   // this.direction = 'S';
   this.beers = 0;
   this.score = 0;
+  this.clientsHidden = 0;
   this.lost = false;
 }
 
