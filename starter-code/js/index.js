@@ -1,6 +1,6 @@
 var board = new Board();
 var barman = new Barman();
-var clients = [];
+var clients = [[''],['']];
 
 // Print board
 function printBoard(board) {
@@ -29,36 +29,46 @@ function printBoard(board) {
 
 function generateClientRow(boardRow) {
   var speeds = [500, 1000, 1500, 2000, 2500];
-  var waitBeers = [30000];
+  var waitBeers = [10000];
   var positionsX = [0, 1, 2, 3, 4, 5, 6];
-  var newClient = {};
+  var client = {};
 
   var posX = Math.floor((Math.random() * positionsX.length) + 1); // Position X: from 1 to 7
   var speed = Math.floor((Math.random() * speeds.length));
   var waitBeer = Math.floor((Math.random() * waitBeers.length));
-  newClient = new Client([boardRow, posX], speeds[speed], waitBeers[waitBeer]);
-  clients.push(newClient);
-  // if (clients.length > 1) {
-  //   console.log('POP');
-  //   clients.pop();
-  // }
-  return newClient;
-}
+  client = new Client([boardRow, posX], speeds[speed], waitBeers[waitBeer]);
 
-function paintClient(boardRow) {
-  var client = generateClientRow(boardRow);
+  // add client in array
+  clients[boardRow] = client;
+
   var row = $("div[index='" + boardRow + "']");
   console.log('in');
   var current = $(row).children('div[x="' + client.clientPosition[1] + '"]').addClass('client');
 
-  setTimeout(function() {
-    console.log('setTimeout in');
-    var current = $(row).children('div[x="' + client.clientPosition[1] + '"]').removeClass('client');
-    client = undefined;
-    client = generateClientRow(boardRow);
-  }, client.waitBeer);
+  return client;
+}
 
-  // }, client.waitBeer / 2);
+function paintClient(client) {
+
+  setTimeout(function() {
+
+    // REMOVE CLIENT
+    console.log('setTimeout in');
+
+    var rowClient = client.clientPosition[0];
+    var row = $("div[index='" + rowClient + "']");
+    $(row).children('div[x="' + client.clientPosition[1] + '"]').removeClass('client');
+
+    clients[rowClient] = '';
+    client = undefined;
+
+    // NEW CLIENT
+    var client2 = generateClientRow(rowClient); /// IMPORTANTE !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+    console.log('second client tiemout:', client2);
+    row = $("div[index='" + client2.clientPosition[0] + "']");
+    $(row).children('div[x="' + client2.clientPosition[1] + '"]').addClass('client');
+
+  }, client.waitBeer);
 }
 
 
@@ -83,20 +93,20 @@ function winsClientsHidden(clients) {
 
 }
 
-function checkCollision(row, client, barman, updBeer) {
-  if (client.clientPosition[0] === updBeer[0] && client.clientPosition[1] === updBeer[1]) {
-    console.log('EQUALS POSITIONS');
-    if (client.isHidden()) {
-      barman.clientsHidden++;
-      if (barman.clientsHidden === 4) alert('Barman wins!!!');
-      clearInterval(intervalRow1);
-    }
-    client.hasBeer = true;
-    deleteBeer(newBeer);
-    // changeImage(upBeer);
-    moveClientLeft(clients[row]);
-  }
-}
+// function checkCollision(row, client, barman, updBeer) {
+//   if (client.clientPosition[0] === updBeer[0] && client.clientPosition[1] === updBeer[1]) {
+//     console.log('EQUALS POSITIONS');
+//     if (client.isHidden()) {
+//       barman.clientsHidden++;
+//       if (barman.clientsHidden === 4) alert('Barman wins!!!');
+//       clearInterval(intervalRow1);
+//     }
+//     client.hasBeer = true;
+//     deleteBeer(newBeer);
+//     // changeImage(upBeer);
+//     moveClientLeft(clients[row]);
+//   }
+// }
 
 
 function giveNewBeer(barman, clients) {
@@ -134,7 +144,7 @@ function giveNewBeer(barman, clients) {
             deleteBeer(newBeer);
             client.hasBeer = true;
             // changeImage(upBeer);
-            moveClientLeft(clients[0]);  // position client row in the array
+            moveClientLeft(clients[0]); // position client row in the array
           }
         },
         100);
@@ -156,7 +166,7 @@ function giveNewBeer(barman, clients) {
             client.hasBeer = true;
             deleteBeer(newBeer);
             // changeImage(upBeer);
-            moveClientLeft(clients[1]);  // position client row in the array
+            moveClientLeft(clients[1]); // position client row in the array
           }
         },
         100);
@@ -178,7 +188,7 @@ function giveNewBeer(barman, clients) {
             client.hasBeer = true;
             deleteBeer(newBeer);
             // changeImage(upBeer);
-            moveClientLeft(clients[2]);  // position client row in the array
+            moveClientLeft(clients[2]); // position client row in the array
           }
         },
         100);
@@ -200,7 +210,7 @@ function giveNewBeer(barman, clients) {
             client.hasBeer = true;
             deleteBeer(newBeer);
             // changeImage(upBeer);
-            moveClientLeft(clients[3]);   // position client row in the array
+            moveClientLeft(clients[3]); // position client row in the array
           }
         },
         100);
@@ -278,10 +288,14 @@ $(document).ready(function() {
     $(document).on('keydown', moveListeners);
 
     // init
-    paintClient(0);
-    paintClient(1);
-    paintClient(2);
-    paintClient(3);
+    var client = generateClientRow(0);
+    paintClient(client);
+
+    var client1 = generateClientRow(1);
+    paintClient(client1);
+
+    // paintClient(2);
+    // paintClient(3);
 
 
 
