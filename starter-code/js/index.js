@@ -27,10 +27,9 @@ function printBoard(board) {
 /******************* CLIENT ********************************************************/
 
 
-
 function generateClientRow(boardRow) {
   var speeds = [500, 1000, 1500, 2000, 2500];
-  var waitBeers = [9000];
+  var waitBeers = [30000];
   var positionsX = [0, 1, 2, 3, 4, 5, 6];
   var newClient = {};
 
@@ -39,6 +38,10 @@ function generateClientRow(boardRow) {
   var waitBeer = Math.floor((Math.random() * waitBeers.length));
   newClient = new Client([boardRow, posX], speeds[speed], waitBeers[waitBeer]);
   clients.push(newClient);
+  // if (clients.length > 1) {
+  //   console.log('POP');
+  //   clients.pop();
+  // }
   return newClient;
 }
 
@@ -80,11 +83,31 @@ function winsClientsHidden(clients) {
 
 }
 
+function checkCollision(row, client, barman, updBeer) {
+  if (client.clientPosition[0] === updBeer[0] && client.clientPosition[1] === updBeer[1]) {
+    console.log('EQUALS POSITIONS');
+    if (client.isHidden()) {
+      barman.clientsHidden++;
+      if (barman.clientsHidden === 4) alert('Barman wins!!!');
+      clearInterval(intervalRow1);
+    }
+    client.hasBeer = true;
+    deleteBeer(newBeer);
+    // changeImage(upBeer);
+    moveClientLeft(clients[row]);
+  }
+}
+
+
 function giveNewBeer(barman, clients) {
 
   var newBeer = barman.giveNewBeer();
 
   var client;
+  var clientsHiddenWin = 4;
+
+  console.log('Clients', clients);
+
   for (var i = 0; i < clients.length; i++) {
     if (newBeer.beerPosition[0] === clients[i].clientPosition[0]) {
       client = clients[i];
@@ -98,59 +121,67 @@ function giveNewBeer(barman, clients) {
         function() {
           var updBeer = updateBeerLeft(newBeer);
 
-          if (client.clientPosition[0] === updBeer[0] && client.clientPosition[1] === updBeer[1]) {
+          // checkCollision(newBeer.beerPosition[0], client, barman, newBeer, updBeer);
+          console.log('pos-0: ', client.clientPosition[0], '-Beer-0:', updBeer[0], '- Client-1', client.clientPosition[1], '- Beer-1', updBeer[1]);
+          console.log('CASE 0');
 
+          if (client.clientPosition[0] === updBeer[0] && client.clientPosition[1] === updBeer[1]) {
             if (client.isHidden()) {
               barman.clientsHidden++;
-              if (barman.clientsHidden === 2) alert('Barman wins!!!');
+              if (barman.clientsHidden === clientsHiddenWin) alert('Barman wins!!!');
               clearInterval(intervalRow0);
             }
             deleteBeer(newBeer);
             client.hasBeer = true;
             // changeImage(upBeer);
-            moveClientLeft(clients[0]);
+            moveClientLeft(clients[0]);  // position client row in the array
           }
         },
-        1000);
+        100);
       break;
     case 1:
       var intervalRow1 = setInterval(
         function() {
           var updBeer = updateBeerLeft(newBeer);
-          // var clientRow = client.position;
+
+          // checkCollision(newBeer.beerPosition[0], client, barman, newBeer, updBeer); // if (client.clientPosition[0] === updBeer[0] && client.clientPosition[1] === updBeer[1]) {
+          console.log('CASE 1');
 
           if (client.clientPosition[0] === updBeer[0] && client.clientPosition[1] === updBeer[1]) {
             if (client.isHidden()) {
               barman.clientsHidden++;
-              if (barman.clientsHidden === 2) alert('Barman wins!!!');
+              if (barman.clientsHidden === clientsHiddenWin) alert('Barman wins!!!');
               clearInterval(intervalRow1);
             }
             client.hasBeer = true;
             deleteBeer(newBeer);
             // changeImage(upBeer);
-            moveClientLeft(clients[1]);
+            moveClientLeft(clients[1]);  // position client row in the array
           }
         },
-        1000);
+        100);
       break;
     case 2:
       var intervalRow2 = setInterval(
         function() {
           var updBeer = updateBeerLeft(newBeer);
 
+          // checkCollision(newBeer.beerPosition[0], client, barman, newBeer, updBeer);
+          console.log('CASE 2');
+
           if (client.clientPosition[0] === updBeer[0] && client.clientPosition[1] === updBeer[1]) {
             if (client.isHidden()) {
               barman.clientsHidden++;
-              if (barman.clientsHidden === 2) alert('Barman wins!!!');
+              if (barman.clientsHidden === clientsHiddenWin) alert('Barman wins!!!');
               clearInterval(intervalRow2);
             }
             client.hasBeer = true;
             deleteBeer(newBeer);
             // changeImage(upBeer);
-            moveClientLeft(clients[2]);
+            moveClientLeft(clients[2]);  // position client row in the array
           }
         },
-        1000);
+        100);
       break;
 
     case 3:
@@ -158,19 +189,21 @@ function giveNewBeer(barman, clients) {
         function() {
           var updBeer = updateBeerLeft(newBeer);
 
+          // checkCollision(newBeer.beerPosition[0], client, barman, newBeer, updBeer);
+          console.log('CASE 3');
           if (client.clientPosition[0] === updBeer[0] && client.clientPosition[1] === updBeer[1]) {
             if (client.isHidden()) {
               barman.clientsHidden++;
-              if (barman.clientsHidden === 2) alert('Barman wins!!!');
+              if (barman.clientsHidden === clientsHiddenWin) alert('Barman wins!!!');
               clearInterval(intervalRow3);
             }
             client.hasBeer = true;
             deleteBeer(newBeer);
             // changeImage(upBeer);
-            moveClientLeft(clients[3]);
+            moveClientLeft(clients[3]);   // position client row in the array
           }
         },
-        1000);
+        100);
       break;
   }
 }
@@ -246,6 +279,11 @@ $(document).ready(function() {
 
     // init
     paintClient(0);
+    paintClient(1);
+    paintClient(2);
+    paintClient(3);
+
+
 
     // Status change
     // setInterval(function() {

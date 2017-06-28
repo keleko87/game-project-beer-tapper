@@ -4,7 +4,7 @@ function Client(clientPosition, speed, waitBeer) {
   this.speed = speed; // Miliseconds
   this.waitBeer = waitBeer;
   this.hasBeer = false;
-  this.hidden = true;
+  this.hidden = false;
 }
 
 Client.prototype.goRight = function() {
