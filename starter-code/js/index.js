@@ -63,7 +63,7 @@ function paintClient(client) {
     client = undefined;
 
     // NEW CLIENT
-    var client2 = generateClientRow(rowClient); /// IMPORTANTE !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+    var client2 = generateClientRow(rowClient);
     console.log('second client tiemout:', client2);
     row = $("div[index='" + client2.clientPosition[0] + "']");
     $(row).children('div[x="' + client2.clientPosition[1] + '"]').addClass('client');
@@ -83,38 +83,14 @@ function moveClientLeft(client1) {
 }
 
 
-function changeImage(beerCollision) {
-
-}
-
 /******************** BARMAN ********************************/
-
-function winsClientsHidden(clients) {
-
-}
-
-// function checkCollision(row, client, barman, updBeer) {
-//   if (client.clientPosition[0] === updBeer[0] && client.clientPosition[1] === updBeer[1]) {
-//     console.log('EQUALS POSITIONS');
-//     if (client.isHidden()) {
-//       barman.clientsHidden++;
-//       if (barman.clientsHidden === 4) alert('Barman wins!!!');
-//       clearInterval(intervalRow1);
-//     }
-//     client.hasBeer = true;
-//     deleteBeer(newBeer);
-//     // changeImage(upBeer);
-//     moveClientLeft(clients[row]);
-//   }
-// }
-
 
 function giveNewBeer(barman, clients) {
 
   var newBeer = barman.giveNewBeer();
 
   var client;
-  var clientsHiddenWin = 4;
+  var clientsHiddenWin = 8;
 
   console.log('Clients', clients);
 
@@ -290,23 +266,12 @@ $(document).ready(function() {
     // init
     var client = generateClientRow(0);
     paintClient(client);
-
     var client1 = generateClientRow(1);
     paintClient(client1);
-
-    // paintClient(2);
-    // paintClient(3);
-
-
-
-    // Status change
-    // setInterval(function() {
-    //   paintClient(0);
-    // }, 10000);
-    // setInterval(function() {
-    //   paintClient(1);
-    // }, 10000);
-
+    var client2 = generateClientRow(2);
+    paintClient(client2);
+    var client3 = generateClientRow(3);
+    paintClient(client3);
 
   });
 
