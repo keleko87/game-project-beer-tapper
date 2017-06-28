@@ -13,6 +13,7 @@ html, body {
   margin: 30px auto;
   padding: 50px;
   height: 400px;
+  width: 950px;
   position: relative;
 }
 
@@ -27,14 +28,32 @@ html, body {
   background: #000 !important;
 }
 
-.barman {
-  background: red;
+#barman {
+  background-image: url('../img/barman-mod.jpg');
+  background-size: cover;
+  height: 100px;
+  width: 50px;
+  position: absolute;
+  right: 0;
+  top: 0;
+}
+
+.beer {
+  background-image: url('../img/beer-full.png');
+  background-repeat: no-repeat;
+  background-size: contain;
+  height: 80px;
+  width: 50px;
+  position: absolute;
 }
 
 .client {
   background-image: url('../img/barney.gif');
   background-repeat: no-repeat;
   background-size: contain;
+  height: 80px;
+  width: 50px;
+  position: absolute;
 }
 
 .row {
@@ -51,12 +70,6 @@ html, body {
   /*height: calc(100% / 4);*/
   margin: 0 -1px;
   text-align: center;
-}
-
-.beer {
-  background-image: url('../img/beer-full.png');
-  background-repeat: no-repeat;
-  background-size: contain;
 }
 
 .score span {}

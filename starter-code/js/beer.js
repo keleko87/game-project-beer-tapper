@@ -1,26 +1,40 @@
-function Beer() {
-  // this.direction = 'W';  // From barman to beer
-  this.beerPosition = [];
-  this.crashed = false;
-  this.full = false;
-  this.id = 0;
+function Beer(barmanPos) {
+  this.beerPosX = 0;
+  this.beerPosY = barmanPos;
+  this.id = 'beer-'+barmanPos;
+  this.speedSlide = 500;
 }
 
-Beer.prototype.slideRight = function() {
-  return this.beerPosition[1] += 1;
-};
+// Beer.prototype.slideRight = function() {
+//   console.log('go rig');
+//   if (this.beerPosX < 950) {
+//     this.beerPosX += 1;
+//     var Beer = $('#' + this.id).css({
+//       "left": ""+this.beerPosX+"px"
+//     });
+//   }
+//   return this.beerPosX;
+// };
 
 Beer.prototype.slideLeft = function() {
-  return this.beerPosition[1] -= 1;
-};
-
-Beer.prototype.isEmpty = function() {
-  if (this.position[1] === 0) return true;
-};
-
-Beer.prototype.crash = function() {
-  if (this.beerPosition[1] === 1) {
-    console.log('Crashed');
-    this.crashed = true;
+  if (this.beerPosX < 950) {
+    this.beerPosX += 1;
+    var Beer = $('#beer-' + this.beerPosY).css({
+      "right": ""+this.beerPosX+"px"
+    });
   }
+  return this.beerPosX;
+};
+
+Beer.prototype.renderBeer = function() {
+  $("#container-game").append("<div id='" + this.id + "' class='beer'></div>");
+  $('#beer-' + this.beerPosY).css({
+    "top": this.beerPosY,
+    "right": this.beerPosX
+  });
+
+};
+
+
+Beer.prototype.deleteBeer = function() {
 };
