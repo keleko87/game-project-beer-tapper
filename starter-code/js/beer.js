@@ -5,17 +5,6 @@ function Beer(barmanPos) {
   this.speedSlide = 500;
 }
 
-// Beer.prototype.slideRight = function() {
-//   console.log('go rig');
-//   if (this.beerPosX < 950) {
-//     this.beerPosX += 1;
-//     var Beer = $('#' + this.id).css({
-//       "left": ""+this.beerPosX+"px"
-//     });
-//   }
-//   return this.beerPosX;
-// };
-
 Beer.prototype.slideLeft = function() {
   if (this.beerPosX < 950) {
     this.beerPosX += 1;

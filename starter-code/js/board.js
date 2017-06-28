@@ -33,12 +33,18 @@ function giveNewBeer(barman) {
   return newBeer;
 }
 
-function renderNewBeer(newBeer) {
-  newBeer.renderBeer();
-  var intervalBeer = setInterval(function() {
-    newBeer.slideLeft();
-  }, 10);
+var newBeer = barman.giveBeer();
+newBeer.renderBeer();
 
+
+// function renderNewBeer(newBeer) {
+//   newBeer.renderBeer();
+//   var intervalBeer = setInterval(function() {
+//     newBeer.slideLeft();
+//   }, 10);
+// }
+
+function checkCollision(beer,client){
 }
 
 $(document).ready(function() {
@@ -49,10 +55,19 @@ $(document).ready(function() {
     // RenderClients
     client1.renderClient();
     client2.renderClient();
+
+
     var intervalGame = setInterval(function() {
-      console.log('interval');
       client1.goRight();
       client2.goRight();
+      newBeer.slideLeft();
+
+      if(newBeer.beerPosX === client1.clientPosX ){
+        client1.goLeft();
+      }
+      if(newBeer.beerPosX === client2.clientPosX ){
+        client2.goLeft();
+      }
 
     }, 10);
 
