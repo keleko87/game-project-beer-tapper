@@ -54,7 +54,7 @@ html, body {
 }
 
 .client {
-  background-image: url('../img/barney.gif');
+  background-image: url('../img/barney-no-beer.png');
   background-repeat: no-repeat;
   background-size: contain;
   height: 80px;

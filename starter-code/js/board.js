@@ -1,40 +1,46 @@
+var client1 = new Client(0);
+var client2 = new Client(100);
+
 function Board() {
 
   this.barman = new Barman();
-  this.client1 = new Client(0);
-  this.client2 = new Client(100);
+  // this.client1 = new Client(0);
+  // this.client2 = new Client(100);
   this.beers = [];
-  this.checkCollision = this._checkCollision(beer, client);
+  // this.checkCollision = this._checkCollision;
 
   // CRATE A BEER TO CHECH
-  this.createBeer();
-
+  this.createBeer(0);
+  // this.createBeer(100);
 }
 
-Board.prototype.createBeer = function() {
-  var beer = new Beer(100);
+Board.prototype.createBeer = function(pos) {
+  var beer = new Beer(pos);
   this.beers.push(beer);
 };
 
 Board.prototype.update = function() {
-  this.beers.forEach(function(elem) {
-    this.checkCollision(elem, this.client1);
-    this.checkCollision(elem, this.client2);
 
-    /*
-    if(colisiona?){
-    mueve cliente
-    elimina birra
-    resta puntuacion
+  this.beers.forEach(function(beer) {
+    var collision1 = checkCollision(beer, client1);
+    var collision2 = checkCollision(beer, client2);
+
+    // Check if exists collision
+    if (collision1) {
+      client1.hasbeer();
+      // Change direction
+      client1.direction = 'L';
+      client1.move();
+      beer.deleteBeer();
     }
-    */
+    // Move beers
+    beer.slideLeft();
+
   });
 
-  this.client1.goRight();
-  this.client2.goRight();
-  this.beers.forEach(function(e) {
-    e.slideLeft();
-  });
+  // Move clients
+  client1.move();
+
 };
 
 // Listener to move Barman
@@ -57,11 +63,19 @@ Board.prototype.moveListeners = function(event) {
   }
 };
 
-Board.prototype._checkCollision = function (newBeer, client1) {
-  //console.log('BEER POS: ', newBeer.beerPosX, 'CLIENT POS: ', client1.clientPosX);
+function checkCollision(newBeer, client1) {
+  console.log('BEER POS: ', newBeer.beerPosX, 'CLIENT POS: ', client1.clientPosX);
   if (newBeer.beerPosX === client1.clientPosX && newBeer.beerPosY === client1.clientPosY) {
     console.log('collision');
     return true;
   }
   return false;
-};
+}
+
+function win() {
+
+}
+
+function lost() {
+
+}

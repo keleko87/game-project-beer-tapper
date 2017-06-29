@@ -1,8 +1,19 @@
 function Client(clientPosY) {
   this.clientPosX = 0;
   this.clientPosY = clientPosY;
+  this.direction = 'R';
   this._renderClient();
+  // this.move();
+  // this.goLeft = this.goLeft;
 }
+
+Client.prototype.hasbeer = function(){
+  this.client.addClass('hasbeer');
+};
+Client.prototype.move = function(){
+  if(this.direction === 'R') this.goRight();
+  if(this.direction === 'L') this.goLeft();
+};
 
 Client.prototype.goRight = function() {
   if (this.clientPosX < 950) {
