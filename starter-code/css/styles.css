@@ -1,111 +1,163 @@
-html, body {
-  margin: 0;
-  padding: 0;
-}
+  html, body {
+    margin: 0;
+    padding: 0;
+  }
 
-.container {
-  margin: 20px;
-  text-align: center;
-}
+  @font-face {
+    font-family: Grobold;
+    src: url('../fonts/GROBOLD.ttf');
+    font-family: SuperMario;
+    src: url('../fonts/SuperMario.ttf');
+  }
 
-#container-game {
-  border: 1px solid black;
-  margin: 30px auto;
-  padding: 50px;
-  height: 400px;
-  width: 950px;
-  position: relative;
-}
+  body {
+    font-family: SuperMario, Grobold, Verdana;
+    background-image: url('../img/bg-bar2.jpg');
+    background-size: cover;
+    background-repeat: no-repeat;
+  }
 
-#board {}
+  button {
+    background: #e5742c;
+    border: 5px solid #d06d27;
+    color: #FFF;
+    font-size: 16px;
+    font-weight: bold;
+    padding: 10px 20px;
+    border-radius: 4px;
+    box-shadow: 1px 2px 3px #a04d12;
+  }
 
-.disabled {
-  opacity: 0.65;
-  cursor: not-allowed;
-}
+  div.inline {
+    display: inline-block;
+    width: 47%;
+  }
 
-.hidden {
-  background: #000 !important;
-}
+  div.inline h1 {
+    text-align: left;
+    color: #813401;
+    margin-left: 90px;
+  }
 
-.barman {
-  background-image: url('../img/barman-mod.jpg');
-  background-size: cover;
-  height: 100px;
-  width: 50px;
-  position: absolute;
-}
+  .container {
+    text-align: center;
+  }
 
-.beer {
-  background-image: url('../img/beer-full.png');
-  background-repeat: no-repeat;
-  background-size: contain;
-  height: 80px;
-  width: 50px;
-  position: absolute;
-}
-.beer.crash {
-  background-image: url('../img/crash-beer.png');
-  background-repeat: no-repeat;
-  background-size: contain;
-  height: 80px;
-  width: 50px;
-  position: absolute;
-}
+  #container-game {
+    border: 10px solid #FFF;
+    background-color: #FFF;
+    margin: 30px auto;
+    padding: 50px 60px;
+    height: 400px;
+    width: 930px;
+    position: relative;
+    border-radius: 5px;
+    box-shadow: 0px 0px 7px #2b2b2b;
+  }
 
-.client {
-  background-image: url('../img/barney-no-beer.png');
-  background-repeat: no-repeat;
-  background-size: contain;
-  height: 80px;
-  width: 50px;
-  position: absolute;
-}
-.client.hasbeer {
-  background-image: url('../img/barney-has-beer2.png');
-  background-repeat: no-repeat;
-  background-size: contain;
-  height: 80px;
-  width: 50px;
-  position: absolute;
-}
+  .bg2 {
+    background-image: url('../img/bar2.png');
+    background-size: contain;
+    background-repeat: round;
+    height: 72px;
+    position: relative;
+    top: -37px;
+  }
 
-.client.client-crash {
-  background-image: url('../img/wtf.jpg');
-  background-repeat: no-repeat;
-  background-size: contain;
-  height: 80px;
-  width: 50px;
-  position: absolute;
-}
-.row {
-  border: 1px solid green;
-  height: calc(100% / 4);
-  width: 100%;
-}
+  .space1, .space2, .space4 {
+    height: 27px;
+  }
 
-.row div {
-  display: inline-block;
-  border: 1px solid green;
-  width: calc(100% / 10);
-  height: 100%;
-  /*height: calc(100% / 4);*/
-  margin: 0 -1px;
-  text-align: center;
-}
+  .space3 {
+    height: 29px;
+  }
 
-.score span {}
+  .disabled {
+    opacity: 0.65;
+    cursor: not-allowed;
+  }
 
-.left {
-  left: 0;
-}
+  .hidden {
+    background: #000 !important;
+  }
 
-.right {
-  right: 0;
-}
+  .barman {
+    background-image: url('../img/barman-ok.jpg');
+    background-size: cover;
+    height: 93px;
+    width: 50px;
+    position: absolute;
+  }
 
-button {}
+  .beer {
+    background-image: url('../img/beer-full.png');
+    background-repeat: no-repeat;
+    background-size: contain;
+    height: 30px;
+    width: 20px;
+    position: absolute;
+  }
 
-#winner {}
+  .beer.crash {
+    background-image: url('../img/crash-beer.png');
+    background-repeat: no-repeat;
+    background-size: contain;
+    height: 100%;
+    width: 50px;
+    position: absolute;
+  }
 
-#winner.hide {}
+  .client {
+    background-image: url('../img/barney-no-beer.png');
+    background-repeat: no-repeat;
+    background-size: contain;
+    height: 100%;
+    width: 59px;
+    position: absolute;
+  }
+
+  .client.hasbeer {
+    background-image: url('../img/barney-has-beer2.png');
+    background-repeat: no-repeat;
+    background-size: contain;
+    height: 100%;
+    width: 62px;
+    margin-top: 18px;
+    position: absolute;
+  }
+
+  .client.client-crash {
+    background-image: url('../img/partner-wtf.png');
+    background-repeat: no-repeat;
+    background-size: contain;
+    height: 100%;
+    width: 85px;
+    margin: -24px -39px;
+    position: absolute;
+  }
+
+  .row {
+    border: 1px solid green;
+    height: calc(100% / 4);
+    width: 100%;
+  }
+
+  .row div {
+    display: inline-block;
+    border: 1px solid green;
+    width: calc(100% / 10);
+    height: 100%;
+    /*height: calc(100% / 4);*/
+    margin: 0 -1px;
+    text-align: center;
+  }
+
+  .score span {}
+
+  .left {
+    left: 0;
+  }
+
+  .right {
+    right: 0;
+  }

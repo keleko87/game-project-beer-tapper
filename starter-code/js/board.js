@@ -1,5 +1,8 @@
 var client1 = new Client(0, 1);
 var client2 = new Client(100, 3);
+var client3 = new Client(200, 2);
+var client4 = new Client(300, 1);
+var client5 = new Client(400, 2);
 
 function Board() {
 
@@ -17,10 +20,16 @@ Board.prototype.update = function() {
   this.barman.beersBar.forEach(function(beer) {
     var collision1 = checkCollision(beer, client1);
     var collision2 = checkCollision(beer, client2);
+    var collision3 = checkCollision(beer, client3);
+    var collision4 = checkCollision(beer, client4);
+    var collision5 = checkCollision(beer, client5);
 
     // Check if exists collision
     if (collision1) upadeAfterCollision(beer, client1);
     if (collision2) upadeAfterCollision(beer, client2);
+    if (collision3) upadeAfterCollision(beer, client3);
+    if (collision4) upadeAfterCollision(beer, client4);
+    if (collision5) upadeAfterCollision(beer, client5);
 
     // Move beers
     beer.slideLeft();
@@ -29,6 +38,9 @@ Board.prototype.update = function() {
   if (client1.happy() && client2.happy()) endGame();
   if (!client1.happy()) client1.move();
   if (!client2.happy()) client2.move();
+  if (!client3.happy()) client3.move();
+  if (!client4.happy()) client4.move();
+  if (!client5.happy()) client5.move();
 };
 
 // Configure key events
