@@ -1,13 +1,44 @@
-var barman = new Barman();
-var client1 = new Client(0);
-var client2 = new Client(100);
+function Board() {
 
-var beer1 = new Beer(100);
+  this.barman = new Barman();
+  this.client1 = new Client(0);
+  this.client2 = new Client(100);
+  this.beers = [];
+  this.checkCollision = this._checkCollision(beer, client);
 
-function Board() {}
+  // CRATE A BEER TO CHECH
+  this.createBeer();
+
+}
+
+Board.prototype.createBeer = function() {
+  var beer = new Beer(100);
+  this.beers.push(beer);
+};
+
+Board.prototype.update = function() {
+  this.beers.forEach(function(elem) {
+    this.checkCollision(elem, this.client1);
+    this.checkCollision(elem, this.client2);
+
+    /*
+    if(colisiona?){
+    mueve cliente
+    elimina birra
+    resta puntuacion
+    }
+    */
+  });
+
+  this.client1.goRight();
+  this.client2.goRight();
+  this.beers.forEach(function(e) {
+    e.slideLeft();
+  });
+};
 
 // Listener to move Barman
-function moveListeners(event) {
+Board.prototype.moveListeners = function(event) {
   var keys = [38, 40, 65];
 
   if (keys.indexOf(event.keyCode) < 0)
@@ -21,59 +52,16 @@ function moveListeners(event) {
       barman.goDown();
       break;
     case 65: // give a new beer
-      giveNewBeer(barman);
+      this.createBeer();
       break;
   }
-}
+};
 
-
-function giveNewBeer(barman) {
-  var newBeer = barman.giveBeer();
-  renderNewBeer(newBeer);
-  return newBeer;
-}
-
-var newBeer = barman.giveBeer();
-newBeer.renderBeer();
-
-
-// function renderNewBeer(newBeer) {
-//   newBeer.renderBeer();
-//   var intervalBeer = setInterval(function() {
-//     newBeer.slideLeft();
-//   }, 10);
-// }
-
-function checkCollision(beer,client){
-}
-
-$(document).ready(function() {
-  $('#start').on('click', function() {
-    $(this).attr('disabled', 'disabled').addClass('disabled');
-    $(document).on('keydown', moveListeners);
-
-    // RenderClients
-    client1.renderClient();
-    client2.renderClient();
-
-
-    var intervalGame = setInterval(function() {
-      client1.goRight();
-      client2.goRight();
-      newBeer.slideLeft();
-
-      console.log('BEER POS: ',newBeer.beerPosX,'CLIENT POS: ',client1.clientPosX);
-      if(newBeer.beerPosX === client1.clientPosX && newBeer.beerPosY === client1.clientPosY){
-        console.log('collision');
-        clearInterval(intervalGame);
-        newBeer.deleteBeer(newBeer);
-        var intervalClient = setInterval(function () {
-          client1.goLeft();
-        }, 10);
-      }
-
-
-    }, 10);
-
-  });
-});
+Board.prototype._checkCollision = function (newBeer, client1) {
+  //console.log('BEER POS: ', newBeer.beerPosX, 'CLIENT POS: ', client1.clientPosX);
+  if (newBeer.beerPosX === client1.clientPosX && newBeer.beerPosY === client1.clientPosY) {
+    console.log('collision');
+    return true;
+  }
+  return false;
+};

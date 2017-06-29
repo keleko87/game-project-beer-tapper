@@ -28,18 +28,24 @@ html, body {
   background: #000 !important;
 }
 
-#barman {
+.barman {
   background-image: url('../img/barman-mod.jpg');
   background-size: cover;
   height: 100px;
   width: 50px;
   position: absolute;
-  right: 0;
-  top: 0;
 }
 
 .beer {
   background-image: url('../img/beer-full.png');
+  background-repeat: no-repeat;
+  background-size: contain;
+  height: 80px;
+  width: 50px;
+  position: absolute;
+}
+.beer.crash {
+  background-image: url('../img/crash-beer.png');
   background-repeat: no-repeat;
   background-size: contain;
   height: 80px;
@@ -55,7 +61,23 @@ html, body {
   width: 50px;
   position: absolute;
 }
+.client.hasbeer {
+  background-image: url('../img/barney-has-beer2.png');
+  background-repeat: no-repeat;
+  background-size: contain;
+  height: 80px;
+  width: 50px;
+  position: absolute;
+}
 
+.client.client-crash {
+  background-image: url('../img/wtf.jpg');
+  background-repeat: no-repeat;
+  background-size: contain;
+  height: 80px;
+  width: 50px;
+  position: absolute;
+}
 .row {
   border: 1px solid green;
   height: calc(100% / 4);

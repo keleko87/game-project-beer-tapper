@@ -1,15 +1,17 @@
 function Client(clientPosY) {
   this.clientPosX = 0;
   this.clientPosY = clientPosY;
-  this.id = clientPosY;
+  this._renderClient();
 }
 
 Client.prototype.goRight = function() {
   if (this.clientPosX < 950) {
     this.clientPosX += 1;
-    var client = $('#' + this.id).css({
-      "left": ""+this.clientPosX+"px"
+    this.client.css({
+      "left": "" + this.clientPosX + "px"
     });
+  } else {
+    this.client.addClass('client-crash');
   }
   return this.clientPosX;
 };
@@ -17,18 +19,23 @@ Client.prototype.goRight = function() {
 Client.prototype.goLeft = function() {
   if (this.clientPosX > 0) {
     this.clientPosX -= 1;
-    var client = $('#' + this.clientPosY).css({
-      "left": ""+this.clientPosX+"px"
+    this.client.css({
+      "left": "" + this.clientPosX + "px"
     });
+  } else {
+    this.client.addClass('hasbeer');
   }
   return this.clientPosX;
 };
 
-Client.prototype.renderClient = function() {
-  $("#container-game").append("<div id='" + this.id + "' class='client'></div>");
-  $('#' + this.clientPosY).css({
+Client.prototype._renderClient = function() {
+  this.client = $("<div>").addClass('client').css({
     "top": this.clientPosY,
     "left": this.clientPosX
   });
+  $("#container-game").append(this.client);
+};
 
+Client.prototype.deleteClient = function() {
+  this.client.remove();
 };

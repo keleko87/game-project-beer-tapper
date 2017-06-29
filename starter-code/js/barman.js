@@ -1,14 +1,15 @@
 function Barman() {
   this.score = 0;
   this.posY = 0;
+  this.posX = 0;
+  this._renderBarman();
 }
 
 Barman.prototype.goUp = function() {
-  console.log('go up');
   if (this.posY > 0) {
     this.posY -= 100;
-    var barman = $('#barman').css({
-      "top": ""+this.posY+"px"
+    this.barman.css({
+      "top": "" + this.posY + "px"
     });
   }
   return this.posY;
@@ -17,14 +18,17 @@ Barman.prototype.goUp = function() {
 Barman.prototype.goDown = function() {
   if (this.posY < 400) {
     this.posY += 100;
-    var barman = $('#barman').css({
-      "top": ""+this.posY+"px"
+    this.barman.css({
+      "top": "" + this.posY + "px"
     });
   }
   return this.posY;
 };
 
-Barman.prototype.giveBeer = function() {  // setInterval();
-  var newBeer = new Beer(this.posY);
-  return newBeer;  // From right to left
+Barman.prototype._renderBarman = function() {
+  this.barman = $("<div>").addClass('barman').css({
+    "top": "" + this.posY + "px",
+    "right": "" + this.posX + "px"
+  });
+  $("#container-game").append(this.barman);
 };
