@@ -62,12 +62,16 @@ $(document).ready(function() {
       client2.goRight();
       newBeer.slideLeft();
 
-      if(newBeer.beerPosX === client1.clientPosX ){
-        client1.goLeft();
+      console.log('BEER POS: ',newBeer.beerPosX,'CLIENT POS: ',client1.clientPosX);
+      if(newBeer.beerPosX === client1.clientPosX && newBeer.beerPosY === client1.clientPosY){
+        console.log('collision');
+        clearInterval(intervalGame);
+        newBeer.deleteBeer(newBeer);
+        var intervalClient = setInterval(function () {
+          client1.goLeft();
+        }, 10);
       }
-      if(newBeer.beerPosX === client2.clientPosX ){
-        client2.goLeft();
-      }
+
 
     }, 10);
 
