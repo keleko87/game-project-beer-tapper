@@ -240,9 +240,6 @@ function barmanGoDown() {
   var current = $('div[index="' + barman.position[0] + '"]').children().last().addClass('barman');
 }
 
-
-/**********************   BEER **************************************************/
-
 function deleteBeer(newBeer) {
   console.log('delete Beer');
   var row = $("div[index='" + newBeer.beerPosition[0] + "']");
@@ -252,10 +249,6 @@ function deleteBeer(newBeer) {
 }
 
 function updateBeerLeft(newBeer) {
-  // if (newBeer.beerPosition[1] === 1) {
-  //   alert('You lost!! Beer crashed!!');
-      // location.reload();
-  // }
   newBeer.slideLeft();
   var prev = newBeer.beerPosition[1] + 1;
   $('div[x="' + prev + '"]').removeClass('beer');

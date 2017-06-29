@@ -14,7 +14,7 @@ Client.prototype.addBeer = function() {
 };
 
 Client.prototype.happy = function() {
-  if (this.ClientPosX === 0) {
+  if (this.hasBeer === true && this.ClientPosX === 0) {
     console.log('happy');
     return true;
   }

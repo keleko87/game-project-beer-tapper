@@ -17,7 +17,6 @@ Beer.prototype.slideLeft = function() {
   return this.beerPosX;
 };
 
-
 Beer.prototype._renderBeer = function() {
   this.beer = $('<div>').addClass('beer').css({
     "top": this.beerPosY,
