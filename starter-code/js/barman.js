@@ -2,6 +2,7 @@ function Barman() {
   this.score = 0;
   this.posY = 0;
   this.posX = 0;
+  this.beersBar = [];
   this._renderBarman();
 }
 
@@ -31,4 +32,9 @@ Barman.prototype._renderBarman = function() {
     "right": "" + this.posX + "px"
   });
   $("#container-game").append(this.barman);
+};
+
+Barman.prototype.createBeer = function() {
+  var beer = new Beer(this.posY);
+  this.beersBar.push(beer);
 };

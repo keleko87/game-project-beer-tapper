@@ -11,7 +11,9 @@ Beer.prototype.slideLeft = function() {
     this.beer.css({
       "left": "" + this.beerPosX + "px"
     });
-  } else this.beer.addClass('crash');
+  } else {
+    this.beer.addClass('crash');
+  }
   return this.beerPosX;
 };
 

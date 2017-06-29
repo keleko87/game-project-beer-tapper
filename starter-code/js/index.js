@@ -4,13 +4,11 @@ $(document).ready(function() {
     $(this).attr('disabled', 'disabled').addClass('disabled');
 
     // Start game
-    var board  = new Board();
-    //configure key events using jquery
-    $(document).on('keydown', board.moveListeners);
+    var board = new Board();
 
     // Start game rendering loop
     var intervalGame = setInterval(function() {
       board.update();
-    }, 10);  // 1000 / 30
+    }, 1000 / 30);
   });
 });

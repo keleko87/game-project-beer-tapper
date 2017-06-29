@@ -1,35 +1,46 @@
-function Client(clientPosY) {
+function Client(clientPosY, speed) {
   this.clientPosX = 0;
   this.clientPosY = clientPosY;
   this.direction = 'R';
   this._renderClient();
-  // this.move();
-  // this.goLeft = this.goLeft;
+  this.speed = speed; // pixels
+  this.hasBeer = false;
 }
 
-Client.prototype.hasbeer = function(){
+Client.prototype.addBeer = function() {
   this.client.addClass('hasbeer');
+  this.hasBeer = true;
+  console.log('addbeer',this.hasBeer);
 };
-Client.prototype.move = function(){
-  if(this.direction === 'R') this.goRight();
-  if(this.direction === 'L') this.goLeft();
+
+Client.prototype.happy = function() {
+  if (this.ClientPosX === 0) {
+    console.log('happy');
+    return true;
+  }
+};
+
+Client.prototype.move = function() {
+  if (this.direction === 'R') this.goRight();
+  if (this.direction === 'L') this.goLeft();
 };
 
 Client.prototype.goRight = function() {
   if (this.clientPosX < 950) {
-    this.clientPosX += 1;
+    this.clientPosX += this.speed;
     this.client.css({
       "left": "" + this.clientPosX + "px"
     });
   } else {
     this.client.addClass('client-crash');
+    console.log('Barman losts!!!!');
   }
   return this.clientPosX;
 };
 
 Client.prototype.goLeft = function() {
   if (this.clientPosX > 0) {
-    this.clientPosX -= 1;
+    this.clientPosX -= this.speed;
     this.client.css({
       "left": "" + this.clientPosX + "px"
     });
