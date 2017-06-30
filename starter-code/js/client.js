@@ -33,7 +33,7 @@ Client.prototype.goRight = function() {
     });
   } else {
     this.client.addClass('client-crash');
-    console.log('Barman losts!!!!');
+    console.log('addClass client crash');
   }
   return this.clientPosX;
 };

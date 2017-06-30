@@ -1,13 +1,13 @@
 function Beer(barmanPos) {
   this.beerPosX = 950;
   this.beerPosY = barmanPos;
-  this.speedSlide = 500;
+  this.speedSlide = 2;
   this._renderBeer();
 }
 
 Beer.prototype.slideLeft = function() {
   if (this.beerPosX > 0) {
-    this.beerPosX -= 1;
+    this.beerPosX -= this.speedSlide;
     this.beer.css({
       "left": "" + this.beerPosX + "px"
     });

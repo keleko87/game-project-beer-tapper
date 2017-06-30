@@ -9,6 +9,6 @@ $(document).ready(function() {
     // Start game rendering loop
     var intervalGame = setInterval(function() {
       board.update();
-    }, 1000 / 30);
+    }, 20);  // 1000 / 30
   });
 });
