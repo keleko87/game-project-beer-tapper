@@ -6,15 +6,10 @@ var client5 = new Client(400, 3);
 var clientsHasBeer = 0;
 
 function Board() {
-
   this.barman = new Barman();
-  // this.client1 = new Client(0);
-  // this.client2 = new Client(100);
   this.beers = [];
-  // this.createBeer(0);
   this.moveListener();
 }
-
 
 Board.prototype.update = function() {
 
@@ -29,19 +24,6 @@ Board.prototype.update = function() {
 
     // check if beer is crashed
     // beerCrash(beer);
-
-    //check if all clients have a beer - Barman wins
-    if (clientsHasBeer === 4) {
-      alert('CONGRATULATIONS!!! BARMAN WINS!!!');
-      location.reload();
-    }else{
-      barmanWin(client1);
-      barmanWin(client2);
-      barmanWin(client3);
-      barmanWin(client5);
-    }
-
-
 
     // Check if exists collision
     var collision1 = checkCollision(beer, client1);
@@ -60,13 +42,26 @@ Board.prototype.update = function() {
     // Move beers
     beer.slideLeft();
   });
+
   // check if clients are not happy and move
-  if (client1.happy() && client2.happy()) endGame();
-  if (!client1.happy()) client1.move();
-  if (!client2.happy()) client2.move();
-  if (!client3.happy()) client3.move();
+  if (client1.happy()) {
+    console.log('happy 1111 clientsss');
+  }
+  if (client2.happy()) {
+    console.log('happy 2222 clientsss');
+  }
+  if (client3.happy()) {
+    console.log('happy 3333 clientsss');
+  }
+  if (client5.happy()) {
+    console.log('happy 555 clientsss');
+  }
+
+  client1.move();
+  client2.move();
+  client3.move();
   // if (!client4.happy()) client4.move();
-  if (!client5.happy()) client5.move();
+  client5.move();
 };
 
 // Configure key events
@@ -88,7 +83,7 @@ Board.prototype.moveListener = function() {
 
 function checkCollision(newBeer, client1) {
   if ((newBeer.beerPosY === client1.clientPosY) && (newBeer.beerPosX === client1.clientPosX || (newBeer.beerPosX + 1) === client1.clientPosX || (newBeer.beerPosX + 2) === client1.clientPosX || (newBeer.beerPosX + 3) === client1.clientPosX || (newBeer.beerPosX + 4) === client1.clientPosX)) {
-    console.log('collision');
+    // console.log('collision');
     return true;
   }
   return false;
@@ -115,13 +110,4 @@ function beerCrash(beer) {
     alert('Beer crashed!! Barman losts !!!');
     location.reload();
   }
-}
-
-function barmanWin(client) {
-  if (client.clientPosX === 0 && client.client.hasClass('hasbeer')) {
-    console.log(clientsHasBeer, 'client has beer wins');
-    clientsHasBeer += 1;
-  }
-  return clientsHasBeer;
-
 }

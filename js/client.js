@@ -5,24 +5,32 @@ function Client(clientPosY, speed) {
   this._renderClient();
   this.speed = speed; // pixels
   this.hasBeer = false;
+  this.limitLine = false;
+  this.happyCl = false;
 }
 
 Client.prototype.addBeer = function() {
   this.client.addClass('hasbeer');
   this.hasBeer = true;
-  console.log('addbeer',this.hasBeer);
+  // console.log('addbeer', this.hasBeer);
 };
 
 Client.prototype.happy = function() {
-  if (this.hasBeer === true && this.ClientPosX === 0) {
+  if (this.limitLine) {
     console.log('happy');
-    return true;
   }
 };
 
 Client.prototype.move = function() {
+
   if (this.direction === 'R') this.goRight();
-  if (this.direction === 'L') this.goLeft();
+  if (this.direction === 'L') {
+    if (this.clientPosX < 50) {
+      this.limitLine = true;
+      console.log('limit 1');
+    }
+    this.goLeft();
+  }
 };
 
 Client.prototype.goRight = function() {
@@ -33,7 +41,6 @@ Client.prototype.goRight = function() {
     });
   } else {
     this.client.addClass('client-crash');
-    console.log('addClass client crash');
   }
   return this.clientPosX;
 };
