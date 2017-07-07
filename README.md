@@ -16,5 +16,7 @@ The barman losts when a client arrives at the end of the bar or he also losts wh
 ## Controls keywboard
 
 Give new beer: A
+
 Move the barman up: ↑
+
 Move the barman down: ↓
